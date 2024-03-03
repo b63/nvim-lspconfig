@@ -43,7 +43,11 @@ return {
   default_config = {
     cmd = { 'clangd' },
     cmd_cwd = function (root_dir)
-      return root_dir .. '/build'
+      if util.path.is_dir(root_dir .. '/build') then
+        return root_dir .. '/build'
+      else
+        return root_dir
+      end
     end,
     filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
     root_dir = function(fname)
